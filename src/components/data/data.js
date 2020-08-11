@@ -8,13 +8,17 @@ export const customerData = [
         accounts: [
             {
                 account_type: "savings",
-                account_balance: 5000.00
+                account_balance: 6000.00
             }
         ],
         transactions: [
             {
                 transaction_type: "initial deposit",
                 transaction_amount: 5000.00
+            },
+            {
+                transaction_type: "deposit",
+                transaction_amount: 1000.00
             }
         ]
     },

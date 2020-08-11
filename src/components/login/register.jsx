@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
+import {customerData} from '../data/data';
 import './style.css';
 
 export default class Register extends Component {
@@ -8,31 +10,70 @@ export default class Register extends Component {
         this.state = {
             name: '',
             address: '',
-            phone: '',
+            phone: null,
             username: '',
             password: '',
             errorMsg: '',
+            data: customerData,
             isSubmitted: ''
         }
     }
 
     handleChange = e => {
-        this.setState({
-            [e.target.name] : e.target.value
-        })
+        if(e.target.name === 'phone'){
+            this.setState({
+                phone : Number(e.target.value)
+            })
+        } else {
+            this.setState({
+                [e.target.name] : e.target.value
+            })
+        }
     }
 
     handleRegister = e => {
+        e.preventDefault();
+
+        let exists = false;
+
+        for(var i = 0; i < customerData.length; i++){
+            var customer = customerData[i];
+
+            if(this.state.username === customer.username || this.state.phone === customer.phone){
+                exists = true;
+            }
+
+            if(exists){
+                this.setState({errorMsg: 'Account with that username or phone number already exists.'});
+            }else {
+                var newCustomer = {
+                    name: this.state.name,
+                    address: this.state.address,
+                    phone: this.state.phone,
+                    username: this.state.username,
+                    password: this.state.password
+                }
+                customerData.push(newCustomer);
+                this.props.history.push({
+                    pathname: '/login'
+                });
+                break;
+            }
+
+        }
 
     }
 
     render() {
+
         return (
             <div className="main">
                 <div className="container">
                     <div className="header">
                         Register
                     </div>
+                    { this.state.errorMsg &&
+                    <p className="error"> { this.state.errorMsg } </p> }
                     <form onSubmit={this.handleRegister} className="form">
                         <div className="form-group">
                             <label htmlFor="name">Name</label>
@@ -55,6 +96,9 @@ export default class Register extends Component {
                             <input type="password" name="password" required placeholder="password" value={this.state.password} onChange={this.handleChange}/>
                         </div>
                         <button type="submit" className="btn">Register</button>
+                        <div>
+                        <Link to='/login' style={{ textDecoration: 'none' }}><p>Cancel</p></Link>
+                        </div>
                     </form>
                 </div>
             </div>
