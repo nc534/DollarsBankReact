@@ -20,6 +20,13 @@ h1 {
     padding-right: 50px;
 }
 
+.error {
+    font-family: "Roboto", sans-serif;
+    font-size: 15px;
+    width: 80%;
+    color: rgb(209, 15, 15);
+}
+
 .container {
     box-shadow: 10px 5px 10px 5px rgba(0, 0, 0, 0.2);
     background-color: white;

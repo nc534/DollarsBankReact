@@ -7,7 +7,7 @@ import Main from '../components/main/main';
 function App() {
   return (
     <Router>
-          <Route exact path="/" component={Login} />
+          <Route exact path={["/", "/login"]} component={Login} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/main" component={Main}/>
     </Router>

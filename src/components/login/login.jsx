@@ -11,6 +11,7 @@ export default class Login extends Component {
             username:'',
             password:'',
             errorMsg: '',
+            data: customerData,
             isLoggedIn: false
         }
     }
@@ -28,13 +29,19 @@ export default class Login extends Component {
 
         for(var i = 0; i < customerData.length; i++){
             var customer = customerData[i];
-
-            if(this.state.username == customer.username && this.state.password == customer.password){
+            if(this.state.username === customer.username && this.state.password === customer.password){
                 isValid = true;
             }
 
             if(isValid){
-                this.props.history.push('/main');
+                this.props.history.push({
+                    pathname: '/main',
+                    state: {
+                        username: this.state.username
+                    }
+                });
+            }else {
+                this.setState({errorMsg: 'Invalid credentials. Please try again.'});
             }
 
         }
@@ -50,6 +57,8 @@ export default class Login extends Component {
                     <div className="header">
                         Login
                     </div>
+                    { this.state.errorMsg &&
+                    <p className="error"> { this.state.errorMsg } </p> }
                     <form onSubmit={this.handleLogin} className="form">
                         <div className="form-group">
                             <label htmlFor="username">Username</label>

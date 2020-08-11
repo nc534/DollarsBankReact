@@ -8,6 +8,8 @@ export const Header = (props) => {
                 <ul className="nav">
                     <li><Link to='/home' className='link'>Home</Link></li>
                     <li><Link to='/transactions' className='link'>Recent Transactions</Link></li>
+                    <li><Link to='/accountinfo' className='link'>Account Information</Link></li>
+                    <li><Link to='/login' className='link'>Log Out</Link></li>
                 </ul>
         </nav>
     )
